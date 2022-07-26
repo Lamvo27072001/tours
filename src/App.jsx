@@ -1,29 +1,40 @@
-
-import './App.css';
+import React, {useState, useEffect} from 'react';
+import Loading from './Loading'
+import Tours from './Tours'
+import './App.scss';
+const url = 'https://course-api.com/react-tours-project'
 
 function App() {
+
+  const [loading, setLoading] = useState(true)
+  const [tours, setTours] = useState([])
+
+  const fetchTours = async () => {
+    setLoading(true)
+
+    try {
+    const response = await fetch(url)
+    const tours = await response.json()
+    setLoading(false)
+    setTours(tours)
+    }
+     catch (error) {
+      setLoading(false)
+      console.log(error)
+  } 
+}
+  useEffect(() => {
+    fetchTours()
+  }, [])
+  if(loading) {
+    return <main>
+      <Loading/>
+    </main>
+  }
   return (
-    <div className="App">
-      <form class="ui form">
-  <div class="field">
-    <label>First Name</label>
-    <input type="text" name="first-name" placeholder="First Name"/>
-  </div>
-  <div class="field">
-    <label>Last Name</label>
-    <input type="text" name="last-name" placeholder="Last Name"/>
-  </div>
-  <div class="field">
-    <div class="ui checkbox">
-      <input type="checkbox" tabindex="0" class="hidden"/>
-      <label>I agree to the Terms and Conditions</label>
-    </div>
-  </div>
-  <button class="ui button" type="submit">Submit</button>
-</form>
-      
-    
-    </div>
+    <main>
+      <Tours/>
+    </main>
   );
 }
 
