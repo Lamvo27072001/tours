@@ -1,8 +1,21 @@
 import React from 'react'
+import Tour from './Tour'
 
-function Tours() {
+function Tours({tours}) {
   return (
-    <h1>Tours Component</h1>
+    <section>
+      <div className='title'>
+        <h2>Our tour</h2>
+        <div className="underline"></div>
+      </div>
+      <div>
+        {tours.map((tour) => {
+          return <Tour  key={tour.id} {...tour}> 
+
+          </Tour>
+        })}
+      </div>
+    </section>
   )
 }
 
