@@ -1,8 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-function Tour() {
+function Tour({id, image, info, price, name}) {
+    const [readMore, setReadMore] = useState(true)
   return (
-    <div>Tour</div>
+    <article className="single-tour">
+        <img src={image} alt={name} />
+        <footer>
+            <div className="tour-info">
+                <h4>{name}</h4>
+                <h4 className="tour-price">${price}</h4>               
+            </div>
+            <p>{readMore?info:`${info.subtring(0,200)}...`}
+            <button onClick={() => setReadMore(!readMore) }></button>
+            </p>
+            <button className="delete-btn">
+                not interested
+            </button>
+        </footer>
+
+    </article>
   )
 }
 
